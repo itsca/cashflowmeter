@@ -6,5 +6,5 @@
         \_____/_/     \_\_____/|_|  |_|_|    |______\____/   \/  \/   |_|  |_|______|  |_|  |______|_|  \_\
 
 
-> A finance sheet based on the one on the board game cashflow to track your personal finances - v.1.0
+> A finance sheet based on the one on the board game cashflow to track your personal finances - v0.1.0
 
