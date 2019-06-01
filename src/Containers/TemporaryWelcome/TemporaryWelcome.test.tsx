@@ -1,9 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import TemporaryWelcome from './TemporaryWelcome';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<TemporaryWelcome />, div);
-  ReactDOM.unmountComponentAtNode(div);
+Enzyme.configure({ adapter: new Adapter() });
+
+describe('TemporaryWelcome Component', () => {
+   it('renders without crashing', () => {
+      shallow(<TemporaryWelcome />);
+    });
 });
