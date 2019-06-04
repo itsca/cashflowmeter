@@ -24,7 +24,8 @@ What things you need to install the software and how to install them
 ```
 - Git
 - Node
-- more to come.
+- more to come
+
 ```
 
 ### Installing
@@ -70,9 +71,10 @@ Todo.
 
 ## Built With
 
-* [React-CRA](https://facebook.github.io/create-react-app/) - The web framework used
-* [Typescript](https://www.typescriptlang.org/) - Type checking
-* [MUI](https://material-ui.com/) - Style Framework
+* [React-CRA](https://facebook.github.io/create-react-app/) - The web framework used.
+* [Typescript](https://www.typescriptlang.org/) - Type checking.
+* [MUI](https://material-ui.com/) - Style Framework.
+* [Storybook](https://material-ui.com/) - Visual Guidelines.
 
 ## Contributing
 
