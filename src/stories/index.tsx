@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 // import { linkTo } from '@storybook/addon-links';
 
-import TemporaryWelcome from '../Containers/TemporaryWelcome/TemporaryWelcome';
+import HomePage from '../Containers/HomePage/HomePage';
 
 // import { Button, Welcome } from '@storybook/react/demo';
 
@@ -20,5 +20,5 @@ import TemporaryWelcome from '../Containers/TemporaryWelcome/TemporaryWelcome';
 //     </Button>
 //   ));
 
-storiesOf('TemporaryWelcome', module)
-  .add('with text', () => <TemporaryWelcome />);
+storiesOf('HomePage', module)
+  .add('with text', () => <HomePage />);

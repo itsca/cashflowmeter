@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import HomePage from '../../Containers/HomePage/HomePage';
 
-const Layout: React.FC = () => {
+const Header: React.FC = () => {
   return (
     <Grid container justify="center" alignItems="center" spacing={2} className="mainContainer">
       <Grid item xs={8}>
@@ -14,4 +14,4 @@ const Layout: React.FC = () => {
   );
 }
 
-export default Layout;
+export default Header;
