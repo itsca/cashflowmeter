@@ -5,14 +5,12 @@ import MainBar from '../MainBar/MainBar';
 
 const Layout: React.FC = () => {
   return (
-    <Grid container justify="center" spacing={2} className="mainContainer">
+    <Grid container spacing={2} className="mainContainer">
       <Grid container xs={12}>
         <MainBar />
       </Grid>
-      <Grid item xs={8}>
-          <Paper>
-              <HomePage/>
-          </Paper>
+      <Grid container xs={12}>
+        <HomePage/>
       </Grid>
     </Grid>
   );
