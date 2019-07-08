@@ -1,14 +1,16 @@
 import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
-import TemporaryWelcome from '../../Containers/TemporaryWelcome/TemporaryWelcome';
+import HomePage from '../../Containers/HomePage/HomePage';
+import MainBar from '../MainBar/MainBar';
 
 const Layout: React.FC = () => {
   return (
-    <Grid container justify="center" alignItems="center" spacing={2} className="mainContainer">
-      <Grid item xs={8}>
-          <Paper>
-              <TemporaryWelcome/>
-          </Paper>
+    <Grid container spacing={2} className="mainContainer">
+      <Grid container xs={12}>
+        <MainBar />
+      </Grid>
+      <Grid container xs={12}>
+        <HomePage/>
       </Grid>
     </Grid>
   );

@@ -1,12 +1,12 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import TemporaryWelcome from './TemporaryWelcome';
+import MainBar from './MainBar';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('TemporaryWelcome Component', () => {
+describe('MainBar Component', () => {
    it('renders without crashing', () => {
-      shallow(<TemporaryWelcome />);
+      shallow(<MainBar />);
     });
 });
