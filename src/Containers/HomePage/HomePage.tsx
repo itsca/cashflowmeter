@@ -86,7 +86,7 @@ const HomePage: React.FC = () => {
             Get Started
           </Button>
           <Typography variant="caption" color="error">
-            The app is currently in construction and will be available shortly.
+            The app is currently in development and will be available shortly.
           </Typography>
         </Grid>
       </Grid>
