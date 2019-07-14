@@ -3,6 +3,7 @@ import { Grid, Paper } from '@material-ui/core';
 import HomePage from '../../Containers/HomePage/HomePage';
 import MainBar from '../MainBar/MainBar';
 import { Route, Link } from 'react-router-dom';
+import Calculator from '../../Containers/Calculator/Calculator';
 
 const Layout: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Layout: React.FC = () => {
       </Grid>
       <Grid container xs={12}>
         <Route path="/" exact component={HomePage} />
+        <Route path="/calculator" exact component={Calculator} />
       </Grid>
     </Grid>
   );
