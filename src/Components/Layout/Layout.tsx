@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import HomePage from '../../Containers/HomePage/HomePage';
 import MainBar from '../MainBar/MainBar';
+import { Route, Link } from 'react-router-dom';
 
 const Layout: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const Layout: React.FC = () => {
         <MainBar />
       </Grid>
       <Grid container xs={12}>
-        <HomePage/>
+        <Route path="/" exact component={HomePage} />
       </Grid>
     </Grid>
   );
