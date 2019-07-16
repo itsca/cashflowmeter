@@ -6,7 +6,7 @@
         \_____/_/     \_\_____/|_|  |_|_|    |______\____/   \/  \/   |_|  |_|______|  |_|  |______|_|  \_\
 
 
-> A finance sheet based on the one on the board game cashflow to track your personal finances - v0.1.0
+> A financial freedom calculator. - v0.1.6
 
 
 Cashflowmeter is a personal financial calculator aimed to help users calculate their passive income, total income and total expenses in order to measure their level of financial freedom. The basic theory states that if your passive income is greater than your monthly expenses, you are financially free.
