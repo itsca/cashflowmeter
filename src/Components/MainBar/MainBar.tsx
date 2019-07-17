@@ -30,7 +30,7 @@ const MainBar: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Grid xs={12}>
+    <Grid container>
       <AppBar position="static" color="primary">
         <Toolbar className={classes.bar}>
           <Typography variant="h6" color="inherit">

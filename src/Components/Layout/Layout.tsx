@@ -8,10 +8,10 @@ import Calculator from '../../Containers/Calculator/Calculator';
 const Layout: React.FC = () => {
   return (
     <Grid container spacing={2} className="mainContainer">
-      <Grid container xs={12}>
+      <Grid container>
         <MainBar />
       </Grid>
-      <Grid container xs={12}>
+      <Grid container>
         <Route path="/" exact component={HomePage} />
         <Route path="/calculator" exact component={Calculator} />
       </Grid>
