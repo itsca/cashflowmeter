@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, TextField, Typography } from '@material-ui/core';
+import { Grid, TextField, Typography, List } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import IncomeSource from '../IncomeSource/IncomeSource';
 
@@ -25,6 +25,14 @@ const Income: React.FC = () => {
 
   const classes = useStyles();
 
+  const renderIncomeSources: () => JSX.Element = () => {
+    return (
+      <List className={'IncomeSources'}>
+          <IncomeSource onValuesCasted={(values) => console.log('Values Changed ', values)}/>
+      </List>
+    )
+  }
+
   return (
     <Grid id='IncomeWrapper' item xs={12} className={classes.root}>
       <Grid container >
@@ -33,7 +41,7 @@ const Income: React.FC = () => {
         </Typography>
         <Grid container>
           <Grid item xs={5} className={classes.incomeSources}>
-            <IncomeSource onValuesCasted={(values) => console.log('Values Changed ', values)}/>
+            {renderIncomeSources()}
           </Grid>
           <Grid item xs={5}>
             <Typography variant="body2">

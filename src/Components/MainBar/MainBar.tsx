@@ -30,20 +30,18 @@ const MainBar: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Grid container>
-      <AppBar position="static" color="primary">
-        <Toolbar className={classes.bar}>
-          <Typography variant="h6" color="inherit">
-            Cashflowmeter
-          </Typography>
-          <IconButton size="small">
-            <a href="https://github.com/itsca/cashflowmeter">
-              <GithubIcon color="disabled" className={classes.icon} />
-            </a>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </Grid>
+    <AppBar position="static" color="primary">
+      <Toolbar className={classes.bar}>
+        <Typography variant="h6" color="inherit">
+          Cashflowmeter
+        </Typography>
+        <IconButton size="small">
+          <a href="https://github.com/itsca/cashflowmeter">
+            <GithubIcon color="disabled" className={classes.icon} />
+          </a>
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   );
 }
 

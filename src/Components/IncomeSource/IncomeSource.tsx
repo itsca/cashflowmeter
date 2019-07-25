@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, TextField } from '@material-ui/core';
+import { Grid, TextField, ListItem } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 interface IncomeSourceState {
@@ -49,7 +49,7 @@ const IncomeSource: React.FC<Props> = (props) => {
   };
 
   return (
-    <Grid id='IncomeSourceWrapper' item xs={12} className={classes.root}>
+    <ListItem className={classes.root + ' IncomeSourceWrapper'}>
       <Grid container >
         <Grid item xs={7}>
           <TextField
@@ -78,7 +78,7 @@ const IncomeSource: React.FC<Props> = (props) => {
           />
         </Grid>
       </Grid>
-    </Grid>
+    </ListItem>
   )
 }
 
