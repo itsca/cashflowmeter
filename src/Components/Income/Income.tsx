@@ -3,11 +3,6 @@ import { Grid, TextField, Typography } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import IncomeSource from '../IncomeSource/IncomeSource';
 
-interface State {
-  name: string;
-  profession: string;
-}
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     textField: {
@@ -29,14 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const Income: React.FC = () => {
 
   const classes = useStyles();
-  const [values, setValues] = React.useState<State>({
-    name: '',
-    profession: ''
-  });
-
-  const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [name]: event.target.value });
-  };
 
   return (
     <Grid id='IncomeWrapper' item xs={12} className={classes.root}>
@@ -46,7 +33,7 @@ const Income: React.FC = () => {
         </Typography>
         <Grid container>
           <Grid item xs={5} className={classes.incomeSources}>
-            <IncomeSource />
+            <IncomeSource onValuesCasted={(values) => console.log('Values Changed ', values)}/>
           </Grid>
           <Grid item xs={5}>
             <Typography variant="body2">

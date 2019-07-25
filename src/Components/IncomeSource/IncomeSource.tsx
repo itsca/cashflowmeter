@@ -1,14 +1,14 @@
 import React from 'react';
-import { Grid, TextField, Typography } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
-interface State {
+interface IncomeSourceState {
   name: string;
   amount: number;
 }
 
 interface Props {
-  
+  onValuesCasted: (values: IncomeSourceState) => unknown
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,15 +29,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const IncomeSource: React.FC = (props: Props) => {
+const IncomeSource: React.FC<Props> = (props) => {
 
   const classes = useStyles();
-  const [values, setValues] = React.useState<State>({
-    name: '',
+  const [values, setValues] = React.useState<IncomeSourceState>({
+    name: 'Income source',
     amount: 0
   });
 
-  const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  React.useEffect(() => {
+    const { onValuesCasted } = props
+    onValuesCasted(values)
+  }, [values]);
+
+
+
+  const handleChange = (name: keyof IncomeSourceState) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
@@ -46,7 +53,7 @@ const IncomeSource: React.FC = (props: Props) => {
       <Grid container >
         <Grid item xs={7}>
           <TextField
-            id="input-name"
+            // id="input-name"
             label="Source"
             className={classes.textField}
             value={values.name}
@@ -57,7 +64,7 @@ const IncomeSource: React.FC = (props: Props) => {
         </Grid>
         <Grid item xs={5}>
           <TextField
-            id="outlined-number"
+            // id="outlined-number"
             label="Amount"
             value={values.amount}
             onChange={handleChange('amount')}
