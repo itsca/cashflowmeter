@@ -21,7 +21,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "cliact": "cd .cliact/scripts/ && make_component.bat"
   },
   "eslintConfig": {
     "extends": "react-app"
