@@ -1,6 +1,12 @@
 import React from 'react';
-import { TableBody, TableCell, TableRow, Checkbox } from '@material-ui/core';
+import { TableBody, TableCell, TableRow, Checkbox, TextField } from '@material-ui/core';
 import { SummaryTableSortingOrder, SummaryTableRowData } from '../SummaryTable';
+
+interface State {
+  values: {
+    [key: string]: string;
+  }
+}
 
 interface Props {
   rows: SummaryTableRowData[],
@@ -46,6 +52,17 @@ const SummaryTableBody: React.FC<Props> = (props: Props) => {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  // const [values, setValues] = React.useState<State>({
+  //   name: '',
+  //   profession: ''
+  // });
+
+  // const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setValues({ ...values, [name]: event.target.value });
+  // };
+  
+
+
   return (
     <TableBody>
       {stableSort(rows, getSorting(order, orderBy))
@@ -72,6 +89,15 @@ const SummaryTableBody: React.FC<Props> = (props: Props) => {
                 />
               </TableCell>
               <TableCell component="th" id={labelId} scope="row" padding="none">
+                {/* <TextField
+                  id="input-name"
+                  label="Name"
+                  className={classes.textField}
+                  value={values.name}
+                  onChange={handleChange('name')}
+                  margin="normal"
+                  variant="outlined"
+                /> */}
                 {row.name}
               </TableCell>
               <TableCell align="right">{row.amount}</TableCell>

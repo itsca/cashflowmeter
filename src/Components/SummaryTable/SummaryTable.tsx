@@ -3,8 +3,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import SummaryTableToolBar from './SummaryTableToolBar/SummaryTableToolBar';
 import SummaryTableHeader from './SummaryTableHeader/SummaryTableHeader';
 import SummaryTableBody from './SummaryTableBody/SummaryTableBody';
@@ -26,19 +24,8 @@ function createData(
 }
 
 const rows = [
-  createData('Cupcake', 30),
-  createData('Donut', 452),
-  createData('Eclair', 260),
-  createData('Frozen yoghurt', 15),
-  createData('Gingerbread', 356),
-  createData('Honeycomb', 40),
-  createData('Ice cream sandwich', 23),
-  createData('Jelly Bean', 37),
-  createData('KitKat', 518),
-  createData('Lollipop', 39),
-  createData('Marshmallow', 40),
-  createData('Nougat', 360),
-  createData('Oreo', 437),
+  createData('Salary', 2600),
+  createData('BCRUSDCDP', 240),
 ];
 
 export type SummaryTableSortingOrder = 'asc' | 'desc';
@@ -68,7 +55,6 @@ export default function SummaryTable(props: Props) {
   const [orderBy, setOrderBy] = React.useState<keyof SummaryTableRowData>('amount');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   function handleRequestSort(event: React.MouseEvent<unknown>, property: keyof SummaryTableRowData) {
@@ -115,10 +101,6 @@ export default function SummaryTable(props: Props) {
     setPage(0);
   }
 
-  function handleChangeDense(event: React.ChangeEvent<HTMLInputElement>) {
-    setDense(event.target.checked);
-  }
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -127,7 +109,7 @@ export default function SummaryTable(props: Props) {
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size='medium'
           >
             <SummaryTableHeader
               numSelected={selected.length}
@@ -137,7 +119,7 @@ export default function SummaryTable(props: Props) {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
-            <SummaryTableBody 
+            <SummaryTableBody
               rows={rows}
               rowsPerPage={rowsPerPage}
               selected={selected}
@@ -164,10 +146,6 @@ export default function SummaryTable(props: Props) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   );
 }

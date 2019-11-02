@@ -70,8 +70,8 @@ const SummaryTableToolBar = (props: SummaryTableToolBarProps) => {
             </IconButton>
           </Tooltip>
         ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
+          <Tooltip title="Add Income Source">
+            <IconButton aria-label="Add Income Source">
               <AddIcon />
             </IconButton>
           </Tooltip>
