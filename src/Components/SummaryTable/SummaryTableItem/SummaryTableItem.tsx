@@ -1,17 +1,42 @@
 import React from 'react';
-import { Grid, TableRow, TableCell, Checkbox } from '@material-ui/core';
+import { TableRow, TableCell, Checkbox, TextField } from '@material-ui/core';
 import { SummaryTableRowData } from '../SummaryTable';
+
+interface State {
+  name: string,
+  amount: number
+}
 
 interface Props {
   labelId: string,
   row: SummaryTableRowData,
   rowName: string,
   isItemSelected: boolean,
-  handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowName: string) => void
+  handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowName: string) => void,
+  onValueCasted: (values: State) => void
 }
+
 
 const SummaryTableItem: React.FC<Props> = (props: Props) => {
   const {row, isItemSelected, handleSelectClick, labelId, rowName} = props
+
+  const [values, setValues] = React.useState<State>({
+    name: row.name,
+    amount: row.amount
+  });
+
+  const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+  
+  React.useEffect(() => {
+    setValues(row);
+  }, [row]);
+  
+  React.useEffect(() => {
+    props.onValueCasted(values)
+  }, [values]);
+
   return (
     <TableRow
       hover
@@ -29,18 +54,23 @@ const SummaryTableItem: React.FC<Props> = (props: Props) => {
         />
       </TableCell>
       <TableCell component="th" id={labelId} scope="row" padding="none">
-        {/* <TextField
+        <TextField
           id="input-name"
-          label="Name"
-          className={classes.textField}
           value={values.name}
           onChange={handleChange('name')}
           margin="normal"
           variant="outlined"
-        /> */}
-        {row.name}
+        />
       </TableCell>
-      <TableCell align="right">{row.amount}</TableCell>
+      <TableCell align="right">
+        <TextField
+          id="input-amount"
+          value={values.amount}
+          onChange={handleChange('amount')}
+          margin="normal"
+          variant="outlined"
+        />
+      </TableCell>
     </TableRow>
   );
 }

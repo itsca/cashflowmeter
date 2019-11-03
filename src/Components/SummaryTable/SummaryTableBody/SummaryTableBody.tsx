@@ -5,7 +5,8 @@ import SummaryTableItem from '../SummaryTableItem/SummaryTableItem';
 
 interface State {
   values: {
-    [key: string]: string;
+    name: string,
+    value: number,
   }
 }
 
@@ -52,29 +53,28 @@ const SummaryTableBody: React.FC<Props> = (props: Props) => {
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
-  // const [values, setValues] = React.useState<State>({
-  //   name: '',
-  //   profession: ''
-  // });
-
-  // const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setValues({ ...values, [name]: event.target.value });
-  // };
-  
-
-
+  const sortedRows = stableSort(rows, getSorting(order, orderBy))
+  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
   return (
     <TableBody>
-      {stableSort(rows, getSorting(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .map((row : SummaryTableRowData, index: number) => {
+      {sortedRows.map((row : SummaryTableRowData, index: number) => {
           const rowName = typeof row.name === 'string' ? row.name : '';
           const isItemSelected = isSelected(rowName);
           const labelId = `enhanced-table-checkbox-${index}`;
 
           return (
-            <SummaryTableItem row={row} labelId={labelId} rowName={rowName} isItemSelected={isItemSelected} handleSelectClick={handleSelectClick}/>
+            <>
+              <div>{row.name}</div>
+              <SummaryTableItem 
+                row={row} 
+                labelId={labelId} 
+                rowName={rowName} 
+                isItemSelected={isItemSelected} 
+                handleSelectClick={handleSelectClick}
+                onValueCasted={(values) => console.log(values)}
+                key={index}
+              />
+            </>
           );
         })}
       {emptyRows > 0 && (
