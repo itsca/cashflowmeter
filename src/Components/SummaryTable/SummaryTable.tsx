@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import SummaryTableToolBar from './SummaryTableToolBar/SummaryTableToolBar';
 import SummaryTableHeader from './SummaryTableHeader/SummaryTableHeader';
 import SummaryTableBody from './SummaryTableBody/SummaryTableBody';
+import { ItemValuesType } from './SummaryTableItem/SummaryTableItem';
 
 interface Props {
   
@@ -22,11 +23,6 @@ function createData(
 ): SummaryTableRowData {
   return { name, amount };
 }
-
-const rows = [
-  createData('Salary', 2600),
-  createData('BCRUSDCDP', 240),
-];
 
 export type SummaryTableSortingOrder = 'asc' | 'desc';
 
@@ -51,6 +47,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SummaryTable(props: Props) {
   const classes = useStyles();
+  const [rows, setRows] = React.useState<SummaryTableRowData[]>([
+    createData('Salary', 2600),
+    createData('BCRUSDCDP', 240)
+  ]);
   const [order, setOrder] = React.useState<SummaryTableSortingOrder>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof SummaryTableRowData>('amount');
   const [selected, setSelected] = React.useState<string[]>([]);
@@ -101,6 +101,21 @@ export default function SummaryTable(props: Props) {
     setPage(0);
   }
 
+    // Updates the values on state with the changed item values. 
+    const onItemValueChange = (row: SummaryTableRowData, itemValues: ItemValuesType) => {
+      console.log(row);
+      console.log(itemValues);
+      let newVaLues: SummaryTableRowData[] = [...rows]
+      const index = rows.findIndex(_item => _item.name === row.name);
+      if (index > -1) newVaLues[index] = itemValues;
+      if (JSON.stringify(rows)!==JSON.stringify(newVaLues)) {
+        // console.log(rows);
+        // console.log(newVaLues);
+        
+        setRows(newVaLues)
+      }
+    }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -127,6 +142,7 @@ export default function SummaryTable(props: Props) {
               orderBy={orderBy}
               page={page}
               handleSelectClick={handleRowSelected}
+              handleItemValueChanged={onItemValueChange}
             />
           </Table>
         </div>

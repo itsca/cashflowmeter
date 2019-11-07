@@ -1,8 +1,11 @@
-import React from 'react';
-import { TableRow, TableCell, Checkbox, TextField } from '@material-ui/core';
-import { SummaryTableRowData } from '../SummaryTable';
+import React from 'react'
+import { TableRow, TableCell, Checkbox, TextField } from '@material-ui/core'
+import { SummaryTableRowData } from '../SummaryTable'
+import { statement } from '@babel/template'
 
-interface State {
+
+
+export type ItemValuesType = {
   name: string,
   amount: number
 }
@@ -13,29 +16,26 @@ interface Props {
   rowName: string,
   isItemSelected: boolean,
   handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowName: string) => void,
-  onValueCasted: (values: State) => void
+  onValueCasted: (row: SummaryTableRowData, values: ItemValuesType) => void
 }
 
-
+/**
+ * Shows a table row with inputs to update name and amount.
+ */
 const SummaryTableItem: React.FC<Props> = (props: Props) => {
+
   const {row, isItemSelected, handleSelectClick, labelId, rowName} = props
+  const [values, setValues] = React.useState<ItemValuesType>();
 
-  const [values, setValues] = React.useState<State>({
-    name: row.name,
-    amount: row.amount
-  });
-
-  const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [name]: event.target.value });
-  };
-  
-  React.useEffect(() => {
-    setValues(row);
-  }, [row]);
-  
-  React.useEffect(() => {
-    props.onValueCasted(values)
-  }, [values]);
+  const handleChange = (name: keyof ItemValuesType) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value
+    let newValues = {
+      ...row,
+      [name]: name === 'name' ? newValue : Number(newValue)
+    }
+    values && setValues({ ...values, [name]: event.target.value });
+    props.onValueCasted(row, newValues)
+  }
 
   return (
     <TableRow
@@ -43,7 +43,6 @@ const SummaryTableItem: React.FC<Props> = (props: Props) => {
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
-      key={row.name}
       selected={isItemSelected}
       >
       <TableCell padding="checkbox">
@@ -56,7 +55,7 @@ const SummaryTableItem: React.FC<Props> = (props: Props) => {
       <TableCell component="th" id={labelId} scope="row" padding="none">
         <TextField
           id="input-name"
-          value={values.name}
+          value={row.name}
           onChange={handleChange('name')}
           margin="normal"
           variant="outlined"
@@ -65,7 +64,8 @@ const SummaryTableItem: React.FC<Props> = (props: Props) => {
       <TableCell align="right">
         <TextField
           id="input-amount"
-          value={values.amount}
+          type='number'
+          value={row.amount}
           onChange={handleChange('amount')}
           margin="normal"
           variant="outlined"
@@ -75,4 +75,4 @@ const SummaryTableItem: React.FC<Props> = (props: Props) => {
   );
 }
 
-export default SummaryTableItem;
+export default SummaryTableItem
