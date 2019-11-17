@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import { SummaryTableRowData } from '../SummaryTable';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -12,7 +12,7 @@ import SummaryTableBody from './SummaryTableBody/SummaryTableBody';
 import { ItemValuesType } from './SummaryTableItem/SummaryTableItem';
 
 interface Props {
-  
+  initialValues?: SummaryTableRowData[]
 }
 
 export type SummaryTableRowData = {
@@ -24,18 +24,11 @@ export type SummaryTableRowData = {
 export type SummaryTableSortingOrder = 'asc' | 'desc';
 
 // Generates an uniqueId that is also not already on the array of rows
-function generateUniqueId (array: SummaryTableRowData[]) {
-  const newId = uniqueIdUtil();
+function generateUniqueId (array: SummaryTableRowData[]): string {
+  const newId: string = uniqueIdUtil();
+  const idExists: boolean = array.filter((el) => el.id === newId).length > 0
+  return idExists ? generateUniqueId(array) : newId
 }
-
-// Returns a new row data object
-function createRowData(
-  name: string,
-  amount: number
-): SummaryTableRowData {
-  return { amount, id: uniqueIdUtil(), name };
-}
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,16 +55,22 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export default function SummaryTable(props: Props) {
 
+  const { initialValues } = props 
   const classes = useStyles();
-  const [rows, setRows] = React.useState<SummaryTableRowData[]>([
-    createRowData('Salary', 2600),
-    createRowData('BCRUSDCDP', 240)
-  ]);
+  const [rows, setRows] = React.useState<SummaryTableRowData[]>(initialValues && initialValues.length > 0 ? initialValues : []);
   const [order, setOrder] = React.useState<SummaryTableSortingOrder>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof SummaryTableRowData>('amount');
-  const [selected, setSelected] = React.useState<string[]>([]);
+  const [selectedRows, setSelectedRows] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  // Returns a new row data object
+  function createRowData(
+    name: string,
+    amount: number
+  ): SummaryTableRowData {
+    return { amount, id: generateUniqueId(rows), name };
+  }
 
   // Toggles sorting order
   function handleRequestSort(event: React.MouseEvent<unknown>, property: keyof SummaryTableRowData) {
@@ -87,35 +86,35 @@ export default function SummaryTable(props: Props) {
   function handleSelectAllClick(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.checked) {
       const newSelecteds = rows.map(n => n.id);
-      setSelected(newSelecteds);
+      setSelectedRows(newSelecteds);
       return;
     }
-    setSelected([]);
+    setSelectedRows([]);
   }
 
   /**
-   * Adds or deletes selected row by id from selected rows array.
+   * Adds or deletes selectedRows row by id from selectedRows rows array.
    * @param event 
    * @param id 
    */
   function handleRowSelected(event: React.MouseEvent<unknown>, id: string) {
-    const selectedIndex = selected.indexOf(id);
+    const selectedIndex = selectedRows.indexOf(id);
     let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selectedRows, id);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selectedRows.slice(1));
+    } else if (selectedIndex === selectedRows.length - 1) {
+      newSelected = newSelected.concat(selectedRows.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selectedRows.slice(0, selectedIndex),
+        selectedRows.slice(selectedIndex + 1),
       );
     }
     
-    setSelected(newSelected);
+    setSelectedRows(newSelected);
   }
 
   // Sets page number
@@ -146,15 +145,23 @@ export default function SummaryTable(props: Props) {
     setRows(updatedRows)
   }
 
-  // Pushes new row to rows
+  // Removes row from rows array by index
   const removeRows = () => {
+    let updatedRows: SummaryTableRowData[] = [...rows]
+    let updatedselectedRows: string[] = [...selectedRows]
+    selectedRows.forEach(rowId => {
+      updatedRows = updatedRows.filter(row => row.id !== rowId);
+      updatedselectedRows = updatedselectedRows.filter(selectedId => selectedId !== rowId);
+    })
+    setRows(updatedRows)
+    setSelectedRows(updatedselectedRows)
   }
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <SummaryTableToolBar 
-          numSelected={selected.length} 
+          numSelected={selectedRows.length} 
           handleAddClick={addRow}
           handleDeleteClick={removeRows}
         />
@@ -165,7 +172,7 @@ export default function SummaryTable(props: Props) {
             size='medium'
           >
             <SummaryTableHeader
-              numSelected={selected.length}
+              numSelected={selectedRows.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
@@ -175,7 +182,7 @@ export default function SummaryTable(props: Props) {
             <SummaryTableBody
               rows={rows}
               rowsPerPage={rowsPerPage}
-              selected={selected}
+              selectedRows={selectedRows}
               order={order}
               orderBy={orderBy}
               page={page}

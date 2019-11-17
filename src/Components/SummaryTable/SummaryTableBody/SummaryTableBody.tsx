@@ -6,7 +6,7 @@ import SummaryTableItem, { ItemValuesType } from '../SummaryTableItem/SummaryTab
 interface Props {
   rows: SummaryTableRowData[],
   rowsPerPage: number,
-  selected: string[],
+  selectedRows: string[],
   order: SummaryTableSortingOrder,
   orderBy: string,
   page: number,
@@ -63,9 +63,9 @@ function getSorting<K extends keyof any>(
  */
 const SummaryTableBody: React.FC<Props> = (props: Props) => {
 
-  const { rows, rowsPerPage, selected, order, orderBy, page, handleSelectClick, handleItemValueChanged } = props
+  const { rows, rowsPerPage, selectedRows, order, orderBy, page, handleSelectClick, handleItemValueChanged } = props
 
-  const isSelected = (id: string) => selected.indexOf(id) !== -1;
+  const isSelected = (id: string) => selectedRows.indexOf(id) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   const sortedRows = stableSort(rows, getSorting(order, orderBy))
