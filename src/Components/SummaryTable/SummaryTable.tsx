@@ -109,9 +109,6 @@ export default function SummaryTable(props: Props) {
       const index = rows.findIndex(_item => _item.name === row.name);
       if (index > -1) newVaLues[index] = itemValues;
       if (JSON.stringify(rows)!==JSON.stringify(newVaLues)) {
-        // console.log(rows);
-        // console.log(newVaLues);
-        
         setRows(newVaLues)
       }
     }
