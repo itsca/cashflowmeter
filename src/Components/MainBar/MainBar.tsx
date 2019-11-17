@@ -34,7 +34,7 @@ const MainBar: React.FC = () => {
       <AppBar position="static" color="primary">
         <Toolbar className={classes.bar}>
           <Typography variant="h6" color="inherit">
-            Cashflowmeter
+            Egonomy
           </Typography>
           <IconButton size="small">
             <a href="https://github.com/itsca/cashflowmeter">
