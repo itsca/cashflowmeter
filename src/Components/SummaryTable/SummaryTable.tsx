@@ -95,8 +95,6 @@ export default function SummaryTable(props: Props) {
 
   /**
    * Adds or deletes selectedRows row by id from selectedRows rows array.
-   * @param event 
-   * @param id 
    */
   function handleRowSelected(event: React.MouseEvent<unknown>, id: string) {
     const selectedIndex = selectedRows.indexOf(id);

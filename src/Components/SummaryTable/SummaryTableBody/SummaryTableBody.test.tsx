@@ -7,6 +7,6 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('SummaryTableBody Component', () => {
    it('renders without crashing', () => {
-      shallow(<SummaryTableBody rows={[]} rowsPerPage={0} selected={[]} order={'asc'} orderBy='' page={0} handleSelectClick={() => {}} />);
+      shallow(<SummaryTableBody rows={[]} rowsPerPage={0} selectedRows={[]} order={'asc'} orderBy='' page={0} handleSelectClick={() => {}} handleItemValueChanged={(row, itemValues) => console.log('')} />);
     });
 });

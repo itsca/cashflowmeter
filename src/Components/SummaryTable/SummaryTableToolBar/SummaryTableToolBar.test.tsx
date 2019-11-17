@@ -7,6 +7,6 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('SummaryTableToolBar Component', () => {
    it('renders without crashing', () => {
-      shallow(<SummaryTableToolBar numSelected={0}/>);
+      shallow(<SummaryTableToolBar numSelected={0} handleAddClick={() => console.log('')} handleDeleteClick={() => console.log('')} />);
     });
 });
