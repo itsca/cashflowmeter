@@ -38,11 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface SummaryTableToolBarProps {
   numSelected: number;
+  handleAddClick: () => void
 }
 
 const SummaryTableToolBar = (props: SummaryTableToolBarProps) => {
   const classes = useStyles();
-  const { numSelected } = props;
+  const { handleAddClick, numSelected } = props;
 
   return (
     <Toolbar
@@ -71,7 +72,10 @@ const SummaryTableToolBar = (props: SummaryTableToolBarProps) => {
           </Tooltip>
         ) : (
           <Tooltip title="Add Income Source">
-            <IconButton aria-label="Add Income Source">
+            <IconButton
+              aria-label="Add Income Source"
+              onClick={handleAddClick} 
+            >
               <AddIcon />
             </IconButton>
           </Tooltip>

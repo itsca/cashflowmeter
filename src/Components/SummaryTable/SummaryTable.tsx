@@ -17,14 +17,16 @@ export type SummaryTableRowData = {
   name: string;
 }
 
-function createData(
+export type SummaryTableSortingOrder = 'asc' | 'desc';
+
+
+function createRowData(
   name: string,
   amount: number
 ): SummaryTableRowData {
   return { name, amount };
 }
 
-export type SummaryTableSortingOrder = 'asc' | 'desc';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,10 +48,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function SummaryTable(props: Props) {
+
   const classes = useStyles();
   const [rows, setRows] = React.useState<SummaryTableRowData[]>([
-    createData('Salary', 2600),
-    createData('BCRUSDCDP', 240)
+    createRowData('Salary', 2600),
+    createRowData('BCRUSDCDP', 240)
   ]);
   const [order, setOrder] = React.useState<SummaryTableSortingOrder>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof SummaryTableRowData>('amount');
@@ -57,12 +60,17 @@ export default function SummaryTable(props: Props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  // Toggles sorting order
   function handleRequestSort(event: React.MouseEvent<unknown>, property: keyof SummaryTableRowData) {
     const isDesc = orderBy === property && order === 'desc';
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
   }
 
+  /**
+   * When checked return an array with all names from rows
+   * else empty array
+   */
   function handleSelectAllClick(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.checked) {
       const newSelecteds = rows.map(n => n.name);
@@ -72,6 +80,11 @@ export default function SummaryTable(props: Props) {
     setSelected([]);
   }
 
+  /**
+   * Adds or deletes selected row by name from array
+   * @param event 
+   * @param name 
+   */
   function handleRowSelected(event: React.MouseEvent<unknown>, name: string) {
     const selectedIndex = selected.indexOf(name);
     let newSelected: string[] = [];
@@ -88,35 +101,44 @@ export default function SummaryTable(props: Props) {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
   }
 
+  // Sets page number
   function handleChangePage(event: unknown, newPage: number) {
     setPage(newPage);
   }
 
+  // Sets number of pages
   function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   }
 
-    // Updates the values on state with the changed item values. 
-    const onItemValueChange = (row: SummaryTableRowData, itemValues: ItemValuesType) => {
-      console.log(row);
-      console.log(itemValues);
-      let newVaLues: SummaryTableRowData[] = [...rows]
-      const index = rows.findIndex(_item => _item.name === row.name);
-      if (index > -1) newVaLues[index] = itemValues;
-      if (JSON.stringify(rows)!==JSON.stringify(newVaLues)) {
-        setRows(newVaLues)
-      }
+  // Updates the values on state with the changed item values. 
+  const onItemValueChange = (row: SummaryTableRowData, itemValues: ItemValuesType) => {
+    let newVaLues: SummaryTableRowData[] = [...rows]
+    const index = rows.findIndex(_item => _item.name === row.name)
+    if (index > -1) newVaLues[index] = itemValues;
+    if (JSON.stringify(rows)!==JSON.stringify(newVaLues)) {
+      setRows(newVaLues)
     }
+  }
+
+  // Pushes new row to rows
+  const addRow = () => {
+    const newRow: SummaryTableRowData = createRowData(`Income Source #${rows.length + 1}`, 0)
+    const updatedRows: SummaryTableRowData[] = [...rows, newRow]
+    setRows(updatedRows)
+  }
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <SummaryTableToolBar numSelected={selected.length} />
+        <SummaryTableToolBar 
+          numSelected={selected.length} 
+          handleAddClick={addRow}
+        />
         <div className={classes.tableWrapper}>
           <Table
             className={classes.table}

@@ -18,12 +18,6 @@ interface HeadRow {
   label: string;
   numeric: boolean;
 }
-
-const headRows: HeadRow[] = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Source' },
-  { id: 'amount', numeric: true, disablePadding: false, label: 'Amount' },
-];
-
 interface SummaryTableHeaderProps {
   numSelected: number;
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
@@ -32,6 +26,12 @@ interface SummaryTableHeaderProps {
   orderBy: string;
   rowCount: number;
 }
+
+const headRows: HeadRow[] = [
+  { id: 'name', numeric: false, disablePadding: true, label: 'Source' },
+  { id: 'amount', numeric: true, disablePadding: false, label: 'Amount' },
+];
+
 
 function SummaryTableHeader(props: SummaryTableHeaderProps) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
