@@ -43,7 +43,7 @@ const HomePage: React.FC = () => {
           Welcome.
         </Typography>
         <Typography variant="h6" className={classes.description} color={'textSecondary'}>
-          Cashflowmeter is a <b>personal financial calculator</b> aimed to help users calculate their passive income, total income and total expenses in order to measure their <b>level of financial freedom</b>. The basic theory states that if your <b>passive income</b> is <b>greater</b> than your <b>monthly expenses</b>, you are <b>financially free</b>.
+          Egonomny is a <b>personal financial speadsheet</b> aimed to help users calculate their passive income, total income and total expenses in order to measure their <b>level of financial freedom</b>. The basic theory states that if your <b>passive income</b> is <b>greater</b> than your <b>monthly expenses</b>, you are <b>financially free</b>.
         </Typography>
         <Paper className={classes.definitions}>
           <List >
