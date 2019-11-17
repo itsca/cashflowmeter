@@ -12,7 +12,8 @@ import SummaryTableBody from './SummaryTableBody/SummaryTableBody';
 import { ItemValuesType } from './SummaryTableItem/SummaryTableItem';
 
 interface Props {
-  initialValues?: SummaryTableRowData[]
+  initialValues?: SummaryTableRowData[],
+  onValuesChange?: (updatedFormValues: SummaryTableRowData[]) => void
 }
 
 export type SummaryTableRowData = {
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export default function SummaryTable(props: Props) {
 
-  const { initialValues } = props 
+  const { initialValues, onValuesChange } = props 
   const classes = useStyles();
   const [rows, setRows] = React.useState<SummaryTableRowData[]>(initialValues && initialValues.length > 0 ? initialValues : []);
   const [order, setOrder] = React.useState<SummaryTableSortingOrder>('asc');
@@ -135,6 +136,7 @@ export default function SummaryTable(props: Props) {
     if (index > -1) newVaLues[index] = itemValues;
     if (JSON.stringify(rows)!==JSON.stringify(newVaLues)) {
       setRows(newVaLues)
+      onValuesChange && onValuesChange(newVaLues)
     }
   }
 

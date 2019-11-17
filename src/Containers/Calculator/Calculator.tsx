@@ -42,6 +42,7 @@ const Calculator: React.FC = () => {
             <Grid item xs={6}>
               <SummaryTable 
                 initialValues={initialIncomeValues}
+                onValuesChange={(updatedFormValues) => console.log('New Income Values: ', updatedFormValues)}
               />
             </Grid>
           </Grid>
