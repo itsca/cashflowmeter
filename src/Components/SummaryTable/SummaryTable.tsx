@@ -1,8 +1,11 @@
 import React from 'react';
+import uniqueIdUtil from "lodash.uniqueid";
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
+
 import SummaryTableToolBar from './SummaryTableToolBar/SummaryTableToolBar';
 import SummaryTableHeader from './SummaryTableHeader/SummaryTableHeader';
 import SummaryTableBody from './SummaryTableBody/SummaryTableBody';
@@ -13,18 +16,24 @@ interface Props {
 }
 
 export type SummaryTableRowData = {
-  amount: number;
-  name: string;
+  amount: number,
+  id: string,
+  name: string,
 }
 
 export type SummaryTableSortingOrder = 'asc' | 'desc';
 
+// Generates an uniqueId that is also not already on the array of rows
+function generateUniqueId (array: SummaryTableRowData[]) {
+  const newId = uniqueIdUtil();
+}
 
+// Returns a new row data object
 function createRowData(
   name: string,
   amount: number
 ): SummaryTableRowData {
-  return { name, amount };
+  return { amount, id: uniqueIdUtil(), name };
 }
 
 
@@ -47,6 +56,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+/**
+ * A table that allows its items values to change and exports updated values
+ * in real time.
+ */
 export default function SummaryTable(props: Props) {
 
   const classes = useStyles();
@@ -73,7 +86,7 @@ export default function SummaryTable(props: Props) {
    */
   function handleSelectAllClick(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.checked) {
-      const newSelecteds = rows.map(n => n.name);
+      const newSelecteds = rows.map(n => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -81,16 +94,16 @@ export default function SummaryTable(props: Props) {
   }
 
   /**
-   * Adds or deletes selected row by name from array
+   * Adds or deletes selected row by id from selected rows array.
    * @param event 
-   * @param name 
+   * @param id 
    */
-  function handleRowSelected(event: React.MouseEvent<unknown>, name: string) {
-    const selectedIndex = selected.indexOf(name);
+  function handleRowSelected(event: React.MouseEvent<unknown>, id: string) {
+    const selectedIndex = selected.indexOf(id);
     let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -101,6 +114,7 @@ export default function SummaryTable(props: Props) {
         selected.slice(selectedIndex + 1),
       );
     }
+    
     setSelected(newSelected);
   }
 
@@ -118,7 +132,7 @@ export default function SummaryTable(props: Props) {
   // Updates the values on state with the changed item values. 
   const onItemValueChange = (row: SummaryTableRowData, itemValues: ItemValuesType) => {
     let newVaLues: SummaryTableRowData[] = [...rows]
-    const index = rows.findIndex(_item => _item.name === row.name)
+    const index = rows.findIndex(_item => _item.id === row.id)
     if (index > -1) newVaLues[index] = itemValues;
     if (JSON.stringify(rows)!==JSON.stringify(newVaLues)) {
       setRows(newVaLues)
@@ -132,12 +146,17 @@ export default function SummaryTable(props: Props) {
     setRows(updatedRows)
   }
 
+  // Pushes new row to rows
+  const removeRows = () => {
+  }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <SummaryTableToolBar 
           numSelected={selected.length} 
           handleAddClick={addRow}
+          handleDeleteClick={removeRows}
         />
         <div className={classes.tableWrapper}>
           <Table

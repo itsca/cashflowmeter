@@ -10,7 +10,7 @@ interface Props {
   order: SummaryTableSortingOrder,
   orderBy: string,
   page: number,
-  handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowName: string) => void,
+  handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowId: string) => void,
   handleItemValueChanged: (row: SummaryTableRowData, itemValues: ItemValuesType) => void,
 }
 
@@ -65,7 +65,7 @@ const SummaryTableBody: React.FC<Props> = (props: Props) => {
 
   const { rows, rowsPerPage, selected, order, orderBy, page, handleSelectClick, handleItemValueChanged } = props
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  const isSelected = (id: string) => selected.indexOf(id) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   const sortedRows = stableSort(rows, getSorting(order, orderBy))
@@ -74,15 +74,13 @@ const SummaryTableBody: React.FC<Props> = (props: Props) => {
   return (
     <TableBody>
       {sortedRows.map((formValue : SummaryTableRowData, index: number) => {
-          const rowName = typeof formValue.name === 'string' ? formValue.name : '';
-          const isItemSelected = isSelected(rowName);
+          const isItemSelected = isSelected(formValue.id);
           const labelId = `enhanced-table-checkbox-${index}`;
 
           return (
             <SummaryTableItem 
               row={formValue} 
-              labelId={labelId} 
-              rowName={rowName} 
+              labelId={labelId}
               isItemSelected={isItemSelected} 
               handleSelectClick={handleSelectClick}
               onValueCasted={handleItemValueChanged}

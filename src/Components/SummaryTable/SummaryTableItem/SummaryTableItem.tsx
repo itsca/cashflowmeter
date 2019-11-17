@@ -6,16 +6,16 @@ import { statement } from '@babel/template'
 
 
 export type ItemValuesType = {
+  amount: number,
+  id: string,
   name: string,
-  amount: number
 }
 
 interface Props {
   labelId: string,
   row: SummaryTableRowData,
-  rowName: string,
   isItemSelected: boolean,
-  handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowName: string) => void,
+  handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowId: string) => void,
   onValueCasted: (row: SummaryTableRowData, values: ItemValuesType) => void
 }
 
@@ -24,7 +24,7 @@ interface Props {
  */
 const SummaryTableItem: React.FC<Props> = (props: Props) => {
 
-  const {row, isItemSelected, handleSelectClick, labelId, rowName} = props
+  const {row, isItemSelected, handleSelectClick, labelId} = props
   const [values, setValues] = React.useState<ItemValuesType>();
 
   const handleChange = (name: keyof ItemValuesType) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,7 @@ const SummaryTableItem: React.FC<Props> = (props: Props) => {
         <Checkbox
           checked={isItemSelected}
           inputProps={{ 'aria-labelledby': labelId }}
-          onClick={event => handleSelectClick(event, rowName)}
+          onClick={event => handleSelectClick(event, row.id)}
         />
       </TableCell>
       <TableCell component="th" id={labelId} scope="row" padding="none">

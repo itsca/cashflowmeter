@@ -38,12 +38,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface SummaryTableToolBarProps {
   numSelected: number;
-  handleAddClick: () => void
+  handleAddClick: () => void,
+  handleDeleteClick: () => void
 }
 
 const SummaryTableToolBar = (props: SummaryTableToolBarProps) => {
   const classes = useStyles();
-  const { handleAddClick, numSelected } = props;
+  const { handleAddClick, handleDeleteClick, numSelected } = props;
 
   return (
     <Toolbar
@@ -66,7 +67,10 @@ const SummaryTableToolBar = (props: SummaryTableToolBarProps) => {
       <div className={classes.actions}>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
-            <IconButton aria-label="delete">
+            <IconButton 
+              aria-label="delete"
+              onClick={handleDeleteClick}
+            >
               <DeleteIcon />
             </IconButton>
           </Tooltip>
