@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableBody, TableCell, TableRow, Checkbox, TextField } from '@material-ui/core';
 import { SummaryTableSortingOrder, SummaryTableRowData } from '../SummaryTable';
-import SummaryTableItem, { ItemValuesType } from '../SummaryTableItem/SummaryTableItem';
+import SummaryTableItem from '../SummaryTableItem/SummaryTableItem';
 
 interface Props {
   rows: SummaryTableRowData[],
@@ -11,7 +11,7 @@ interface Props {
   orderBy: string,
   page: number,
   handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowId: string) => void,
-  handleItemValueChanged: (row: SummaryTableRowData, itemValues: ItemValuesType) => void,
+  handleItemValueChanged: (row: SummaryTableRowData, itemValues: SummaryTableRowData) => void,
 }
 
 
@@ -54,7 +54,7 @@ function stableSort<T>(array: T[], cmp: (a: T, b: T) => number) {
 function getSorting<K extends keyof any>(
   order: SummaryTableSortingOrder,
   orderBy: K,
-): (a: { [key in K]: number | string }, b: { [key in K]: number | string }) => number {
+): (a: { [key in K]: number | string | boolean }, b: { [key in K]: number | string | boolean }) => number {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
 

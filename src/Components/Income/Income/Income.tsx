@@ -25,12 +25,14 @@ const Income: React.FC = () => {
     {
       name: 'Salary',
       amount: 3250,
-      id: '1'
+      id: '1',
+      isSpecial: false
     },
     {
       name: 'BCRUSDCDP',
       amount: 240,
-      id: '2'
+      id: '2',
+      isSpecial: true
     }
   ]
 
@@ -40,6 +42,7 @@ const Income: React.FC = () => {
       <Grid item xs={6}>
         <SummaryTable 
           initialValues={initialIncomeValues}
+          isSpecialHeader='Passive'
           onValuesChange={(updatedFormValues) => console.log('New Income Values: ', updatedFormValues)}
         />
       </Grid>

@@ -9,16 +9,17 @@ import Paper from '@material-ui/core/Paper';
 import SummaryTableToolBar from './SummaryTableToolBar/SummaryTableToolBar';
 import SummaryTableHeader from './SummaryTableHeader/SummaryTableHeader';
 import SummaryTableBody from './SummaryTableBody/SummaryTableBody';
-import { ItemValuesType } from './SummaryTableItem/SummaryTableItem';
 
 interface Props {
   initialValues?: SummaryTableRowData[],
+  isSpecialHeader: string,
   onValuesChange?: (updatedFormValues: SummaryTableRowData[]) => void
 }
 
 export type SummaryTableRowData = {
   amount: number,
   id: string,
+  isSpecial: boolean,
   name: string,
 }
 
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export default function SummaryTable(props: Props) {
 
-  const { initialValues, onValuesChange } = props 
+  const { initialValues, onValuesChange, isSpecialHeader } = props 
   const classes = useStyles();
   const [rows, setRows] = React.useState<SummaryTableRowData[]>(initialValues && initialValues.length > 0 ? initialValues : []);
   const [order, setOrder] = React.useState<SummaryTableSortingOrder>('asc');
@@ -68,9 +69,10 @@ export default function SummaryTable(props: Props) {
   // Returns a new row data object
   function createRowData(
     name: string,
-    amount: number
+    amount: number,
+    isSpecial: boolean,
   ): SummaryTableRowData {
-    return { amount, id: generateUniqueId(rows), name };
+    return { amount, id: generateUniqueId(rows), name, isSpecial };
   }
 
   // Toggles sorting order
@@ -128,7 +130,7 @@ export default function SummaryTable(props: Props) {
   }
 
   // Updates the values on state with the changed item values. 
-  const onItemValueChange = (row: SummaryTableRowData, itemValues: ItemValuesType) => {
+  const onItemValueChange = (row: SummaryTableRowData, itemValues: SummaryTableRowData) => {
     let newVaLues: SummaryTableRowData[] = [...rows]
     const index = rows.findIndex(_item => _item.id === row.id)
     if (index > -1) newVaLues[index] = itemValues;
@@ -140,7 +142,7 @@ export default function SummaryTable(props: Props) {
 
   // Pushes new row to rows
   const addRow = () => {
-    const newRow: SummaryTableRowData = createRowData(`Income Source #${rows.length + 1}`, 0)
+    const newRow: SummaryTableRowData = createRowData(`Income Source #${rows.length + 1}`, 0, false)
     const updatedRows: SummaryTableRowData[] = [...rows, newRow]
     setRows(updatedRows)
   }
@@ -178,6 +180,7 @@ export default function SummaryTable(props: Props) {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              isSpecialHeader={isSpecialHeader}
             />
             <SummaryTableBody
               rows={rows}
