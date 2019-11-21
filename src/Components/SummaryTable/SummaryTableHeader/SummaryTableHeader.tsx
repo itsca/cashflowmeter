@@ -6,8 +6,9 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 interface Data {
-  amount: number;
-  name: string;
+  amount: number,
+  name: string,
+  isSpecial: boolean,
 }
 
 type Order = 'asc' | 'desc';
@@ -19,25 +20,27 @@ interface HeadRow {
   numeric: boolean;
 }
 interface SummaryTableHeaderProps {
-  numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
+  numSelected: number,
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void,
+  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void,
+  order: Order,
+  orderBy: string,
+  rowCount: number
+  isSpecialHeader: string,
 }
 
-const headRows: HeadRow[] = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Source' },
-  { id: 'amount', numeric: true, disablePadding: false, label: 'Amount' },
-];
-
-
 function SummaryTableHeader(props: SummaryTableHeaderProps) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, isSpecialHeader } = props;
   const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
   };
+
+  const headRows: HeadRow[] = [
+    { id: 'name', numeric: false, disablePadding: true, label: 'Source' },
+    { id: 'amount', numeric: true, disablePadding: false, label: 'Amount' },
+    { id: 'isSpecial', numeric: false, disablePadding: false, label: isSpecialHeader },
+  ];
 
   return (
     <TableHead>

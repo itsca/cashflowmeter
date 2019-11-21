@@ -1,22 +1,13 @@
 import React from 'react'
-import { TableRow, TableCell, Checkbox, TextField } from '@material-ui/core'
+import { TableRow, TableCell, Checkbox, TextField, Switch } from '@material-ui/core'
 import { SummaryTableRowData } from '../SummaryTable'
-import { statement } from '@babel/template'
-
-
-
-export type ItemValuesType = {
-  amount: number,
-  id: string,
-  name: string,
-}
 
 interface Props {
   labelId: string,
   row: SummaryTableRowData,
   isItemSelected: boolean,
   handleSelectClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, rowId: string) => void,
-  onValueCasted: (row: SummaryTableRowData, values: ItemValuesType) => void
+  onValueCasted: (row: SummaryTableRowData, values: SummaryTableRowData) => void
 }
 
 /**
@@ -25,13 +16,13 @@ interface Props {
 const SummaryTableItem: React.FC<Props> = (props: Props) => {
 
   const {row, isItemSelected, handleSelectClick, labelId} = props
-  const [values, setValues] = React.useState<ItemValuesType>();
+  const [values, setValues] = React.useState<SummaryTableRowData>();
 
-  const handleChange = (name: keyof ItemValuesType) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value
+  const handleChange = (name: keyof SummaryTableRowData) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = name === 'name' ? event.target.value : name === 'isSpecial' ? Boolean(event.currentTarget.checked) : Number(event.target.value)
     let newValues = {
       ...row,
-      [name]: name === 'name' ? newValue : Number(newValue)
+      [name]: newValue
     }
     values && setValues({ ...values, [name]: event.target.value });
     props.onValueCasted(row, newValues)
@@ -69,6 +60,13 @@ const SummaryTableItem: React.FC<Props> = (props: Props) => {
           onChange={handleChange('amount')}
           margin="normal"
           variant="outlined"
+        />
+      </TableCell>
+      <TableCell align="right">
+        <Switch
+          checked={row.isSpecial}
+          inputProps={{ 'aria-labelledby': 'isSelected' + labelId }}
+          onChange={handleChange('isSpecial')}
         />
       </TableCell>
     </TableRow>
