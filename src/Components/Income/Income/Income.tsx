@@ -1,9 +1,19 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import SummaryTable, { SummaryTableRowData } from '../../SummaryTable/SummaryTable';
-import { makeStyles } from '@material-ui/styles';
-import IncomeSummary from '../IncomeSummary/IncomeSummary/IncomeSummary';
+import { connect } from "react-redux";
 
+import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+
+import SummaryTable, { SummaryTableRowData } from '../../SummaryTable/SummaryTable';
+import IncomeSummary from '../IncomeSummary/IncomeSummary/IncomeSummary';
+import { getIncomeState } from "../../../Store/selectors";
+import { GlobalStateType } from '../../../Store/store';
+import { GlobalIncomeStateType } from '../../../Store/reducers/income';
+
+
+interface Props {
+  globalIncome: GlobalIncomeStateType
+}
 
 const useStyles = makeStyles({
   root: {
@@ -11,16 +21,12 @@ const useStyles = makeStyles({
   }
 });
 
-const Income: React.FC = () => {
+const Income: React.FC<Props> = (props: Props) => {
 
+  const {globalIncome} = props
 
   const classes = useStyles();
-
-  //TODO: MOVE THIS TO REQUEST FROM API
-  // [
-  //   createRowData('Salary', 2600),
-  //   createRowData('BCRUSDCDP', 240)
-  // ]
+  
   const initialIncomeValues: SummaryTableRowData[] = [
     {
       name: 'Salary',
@@ -36,6 +42,8 @@ const Income: React.FC = () => {
     }
   ]
 
+  console.log('INITIAL GLOBAL Income IS' , globalIncome);
+  
 
   return (
     <Grid className={classes.root + ' Income'} container>
@@ -53,4 +61,8 @@ const Income: React.FC = () => {
   );
 }
 
-export default Income;
+const mapStateToProps = (state: GlobalStateType): Props => {
+  const globalIncome = getIncomeState(state);
+  return { globalIncome };
+};
+export default connect(mapStateToProps)(Income);
