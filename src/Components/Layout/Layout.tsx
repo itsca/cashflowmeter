@@ -1,13 +1,25 @@
 import React from 'react';
+import { Route, Link } from 'react-router-dom';
+
 import { Grid, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+
 import HomePage from '../../Containers/HomePage/HomePage';
 import MainBar from '../MainBar/MainBar';
-import { Route, Link } from 'react-router-dom';
 import Calculator from '../../Containers/Calculator/Calculator';
 
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: '#f1f1f1',
+  }
+});
+
 const Layout: React.FC = () => {
+
+  const classes = useStyles();
+
   return (
-    <Grid container spacing={2} className="mainContainer">
+    <Grid container spacing={2} className={classes.root + ' mainContainer'}>
       <Grid container>
         <MainBar />
       </Grid>
