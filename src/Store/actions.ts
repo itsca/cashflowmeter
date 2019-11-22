@@ -1,5 +1,5 @@
-import { SET_INCOME_VALUES } from "./actionTypes";
-import { GlobalIncomeStateType } from "./reducers/income";
+import { SET_INCOME_SOURCES } from "./actionTypes";
+import { GlobalIncomeStateType } from "./reducers/incomeReducer";
 
 // let nextTodoId = 0;
 
@@ -20,4 +20,4 @@ import { GlobalIncomeStateType } from "./reducers/income";
 /**
  * Updates the values of the income sources on the global store. 
  */
-export const setIncomeValues = (values: GlobalIncomeStateType) => ({ type: SET_INCOME_VALUES, payload: { values } });
+export const setIncomeValues = (values: GlobalIncomeStateType) => ({ type: SET_INCOME_SOURCES, payload: { values } });

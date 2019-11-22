@@ -1,4 +1,4 @@
 import { combineReducers } from "redux";
-import Income from "./income";
+import Income from "./incomeReducer";
 
 export default combineReducers({ Income });

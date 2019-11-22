@@ -8,7 +8,7 @@ import SummaryTable, { SummaryTableRowData } from '../../SummaryTable/SummaryTab
 import IncomeSummary from '../IncomeSummary/IncomeSummary/IncomeSummary';
 import { getIncomeState } from "../../../Store/selectors";
 import { GlobalStateType } from '../../../Store/store';
-import { GlobalIncomeStateType } from '../../../Store/reducers/income';
+import { GlobalIncomeStateType } from '../../../Store/reducers/incomeReducer';
 
 
 interface Props {
