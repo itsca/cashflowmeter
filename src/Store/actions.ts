@@ -20,4 +20,4 @@ import { GlobalIncomeStateType } from "./reducers/incomeReducer";
 /**
  * Updates the values of the income sources on the global store. 
  */
-export const setIncomeValues = (values: GlobalIncomeStateType) => ({ type: SET_INCOME_SOURCES, payload: { values } });
+export const setIncomeValues = (values: GlobalIncomeStateType) => ({ type: SET_INCOME_SOURCES, payload: { sources: values } });

@@ -9,10 +9,13 @@ import IncomeSummary from '../IncomeSummary/IncomeSummary/IncomeSummary';
 import { getIncomeState } from "../../../Store/selectors";
 import { GlobalStateType } from '../../../Store/store';
 import { GlobalIncomeStateType } from '../../../Store/reducers/incomeReducer';
+import { setIncomeValues } from "../../../Store/actions";
+import { setIncomeSourcesActionType } from '../../../Store/actionTypes';
 
 
 interface Props {
-  globalIncome: GlobalIncomeStateType
+  storedIncome?: GlobalIncomeStateType,
+  setIncomeValues?: (values: GlobalIncomeStateType) => setIncomeSourcesActionType
 }
 
 const useStyles = makeStyles({
@@ -23,35 +26,21 @@ const useStyles = makeStyles({
 
 const Income: React.FC<Props> = (props: Props) => {
 
-  const {globalIncome} = props
-
+  const {storedIncome, setIncomeValues} = props
   const classes = useStyles();
-  
-  const initialIncomeValues: SummaryTableRowData[] = [
-    {
-      name: 'Salary',
-      amount: 3250,
-      id: '1',
-      isSpecial: false
-    },
-    {
-      name: 'BCRUSDCDP',
-      amount: 240,
-      id: '2',
-      isSpecial: true
-    }
-  ]
 
-  console.log('INITIAL GLOBAL Income IS' , globalIncome);
+  const storedIncomeSources = storedIncome && storedIncome.sources ? storedIncome.sources : [] 
+
+  console.log('STORED INCOME SOURCES IS' , storedIncomeSources);
   
 
   return (
     <Grid className={classes.root + ' Income'} container>
       <Grid item xs={6}>
         <SummaryTable 
-          initialValues={initialIncomeValues}
+          initialValues={storedIncomeSources}
           isSpecialHeader='Passive'
-          onValuesChange={(updatedFormValues) => console.log('New Income Values: ', updatedFormValues)}
+          onValuesChange={(updatedFormValues) => setIncomeValues && setIncomeValues({sources: updatedFormValues})}
         />
       </Grid>
       <Grid item xs={6}>
@@ -61,8 +50,12 @@ const Income: React.FC<Props> = (props: Props) => {
   );
 }
 
-const mapStateToProps = (state: GlobalStateType): Props => {
-  const globalIncome = getIncomeState(state);
-  return { globalIncome };
+const mapStateToProps = (state: GlobalStateType, ownProps: Props): Props => {
+  const storedIncome = getIncomeState(state);
+  return { 
+    ...ownProps,
+    storedIncome 
+  };
 };
-export default connect(mapStateToProps)(Income);
+
+export default connect(mapStateToProps, {setIncomeValues})(Income);
