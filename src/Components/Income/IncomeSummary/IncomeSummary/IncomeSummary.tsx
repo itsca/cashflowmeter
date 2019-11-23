@@ -2,6 +2,10 @@ import React from 'react';
 import { Grid, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
+interface Props {
+  incomeTotal: number
+}
+
 const useStyles = makeStyles({
   root: {
     height: '100%',
@@ -12,8 +16,9 @@ const useStyles = makeStyles({
   }
 });
 
-const IncomeSummary: React.FC = () => {
+const IncomeSummary: React.FC<Props> = (props: Props) => {
 
+  const { incomeTotal } = props
   const classes = useStyles();
 
   return (
@@ -41,7 +46,7 @@ const IncomeSummary: React.FC = () => {
                 Total Income:
               </TableCell>
               <TableCell>
-                000000
+                  {incomeTotal}
               </TableCell>
             </TableRow>
           </TableBody>

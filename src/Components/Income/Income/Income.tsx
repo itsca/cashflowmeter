@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import SummaryTable, { SummaryTableRowData } from '../../SummaryTable/SummaryTable';
 import IncomeSummary from '../IncomeSummary/IncomeSummary/IncomeSummary';
-import { getIncomeState } from "../../../Store/selectors";
+import { getIncomeState, getTotalIncome } from "../../../Store/selectors";
 import { GlobalStateType } from '../../../Store/store';
 import { GlobalIncomeStateType } from '../../../Store/reducers/incomeReducer';
 import { setIncomeValues } from "../../../Store/actions";
@@ -15,7 +15,8 @@ import { setIncomeSourcesActionType } from '../../../Store/actionTypes';
 
 interface Props {
   storedIncome?: GlobalIncomeStateType,
-  setIncomeValues?: (values: GlobalIncomeStateType) => setIncomeSourcesActionType
+  setIncomeValues?: (values: SummaryTableRowData[]) => setIncomeSourcesActionType,
+  storedIncomeTotal?: number
 }
 
 const useStyles = makeStyles({
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
 
 const Income: React.FC<Props> = (props: Props) => {
 
-  const {storedIncome, setIncomeValues} = props
+  const {storedIncome, storedIncomeTotal, setIncomeValues} = props
   const classes = useStyles();
 
   const storedIncomeSources = storedIncome && storedIncome.sources ? storedIncome.sources : [] 
@@ -40,21 +41,27 @@ const Income: React.FC<Props> = (props: Props) => {
         <SummaryTable 
           initialValues={storedIncomeSources}
           isSpecialHeader='Passive'
-          onValuesChange={(updatedFormValues) => setIncomeValues && setIncomeValues({sources: updatedFormValues})}
+          onValuesChange={(updatedFormValues) => setIncomeValues && setIncomeValues(updatedFormValues)}
         />
       </Grid>
       <Grid item xs={6}>
-        <IncomeSummary />
+        <IncomeSummary 
+          incomeTotal={storedIncomeTotal || 0}
+        />
       </Grid>
     </Grid>
   );
 }
 
 const mapStateToProps = (state: GlobalStateType, ownProps: Props): Props => {
+  console.log('STATE', state.Income);
+  
   const storedIncome = getIncomeState(state);
+  const storedIncomeTotal = getTotalIncome(state);
   return { 
     ...ownProps,
-    storedIncome 
+    storedIncome,
+    storedIncomeTotal, 
   };
 };
 

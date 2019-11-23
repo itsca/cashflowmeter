@@ -1,5 +1,6 @@
 import { SET_INCOME_SOURCES } from "./actionTypes";
 import { GlobalIncomeStateType } from "./reducers/incomeReducer";
+import { SummaryTableRowData } from "../Components/SummaryTable/SummaryTable";
 
 // let nextTodoId = 0;
 
@@ -20,4 +21,4 @@ import { GlobalIncomeStateType } from "./reducers/incomeReducer";
 /**
  * Updates the values of the income sources on the global store. 
  */
-export const setIncomeValues = (values: GlobalIncomeStateType) => ({ type: SET_INCOME_SOURCES, payload: { sources: values } });
+export const setIncomeValues = (values: SummaryTableRowData[]) => ({ type: SET_INCOME_SOURCES, payload: { sources: values } });

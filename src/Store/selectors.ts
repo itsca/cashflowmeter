@@ -1,10 +1,13 @@
 import { GlobalStateType } from "./store";
 
 export const getIncomeState = (state: GlobalStateType) => state.Income;
-// export const getTodosState = store => store.todos;
 
-// export const getTodoList = store =>
-//   getTodosState(store) ? getTodosState(store).allIds : [];
+// Sums the amount property of all Income spources
+export const getTotalIncome = (state: GlobalStateType) => {
+    console.log('SOURCES', state.Income.sources);
+    console.log('SOURCES', state.Income.sources.reduce);
+    
+    return state.Income.sources.reduce((a, b) => a + b.amount, 0)}
 
 // export const getTodoById = (store, id) =>
 //   getTodosState(store) ? { ...getTodosState(store).byIds[id], id } : {};
