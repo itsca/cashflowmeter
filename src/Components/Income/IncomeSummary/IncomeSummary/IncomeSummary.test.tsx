@@ -7,6 +7,12 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('IncomeSummary Component', () => {
    it('renders without crashing', () => {
-      shallow(<IncomeSummary />);
+      shallow(<IncomeSummary
+               incomeTotal={0}
+               activeIncomeTotal={0}
+               activeIncomePercentage={0}
+               passiveIncomeTotal={0}
+               passiveIncomePercentage={0}
+             />);
     });
 });
