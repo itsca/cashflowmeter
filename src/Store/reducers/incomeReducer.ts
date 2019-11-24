@@ -23,11 +23,9 @@ const initialState: GlobalIncomeStateType = {
 };
 
 export default function(state = initialState, action: setIncomeSourcesActionType ): GlobalIncomeStateType {
-  console.log('&&&payload', action.payload);
   
   switch (action.type) {
     case SET_INCOME_SOURCES: {
-      console.log('THE ACTION', action)
       const newIncomeSources = action.payload;
       return newIncomeSources;
     }

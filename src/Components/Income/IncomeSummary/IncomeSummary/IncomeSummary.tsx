@@ -1,9 +1,13 @@
 import React from 'react';
-import { Grid, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { Grid, Table, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 interface Props {
-  incomeTotal: number
+  incomeTotal: number,
+  passiveIncomeTotal: number,
+  activeIncomeTotal: number,
+  activeIncomePercentage: number,
+  passiveIncomePercentage: number,
 }
 
 const useStyles = makeStyles({
@@ -18,7 +22,7 @@ const useStyles = makeStyles({
 
 const IncomeSummary: React.FC<Props> = (props: Props) => {
 
-  const { incomeTotal } = props
+  const { incomeTotal, passiveIncomeTotal, activeIncomeTotal, activeIncomePercentage, passiveIncomePercentage } = props
   const classes = useStyles();
 
   return (
@@ -30,7 +34,7 @@ const IncomeSummary: React.FC<Props> = (props: Props) => {
                 Active Income:
               </TableCell>
               <TableCell>
-                000000
+                {activeIncomeTotal}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -38,7 +42,16 @@ const IncomeSummary: React.FC<Props> = (props: Props) => {
                 Passive Income:
               </TableCell>
               <TableCell>
-                000000
+                {passiveIncomeTotal}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                Income Ratio:
+              </TableCell>
+              <TableCell>
+                <Typography>{`Passive: ${passiveIncomePercentage}%`}</Typography>
+                <Typography>{`Active: ${activeIncomePercentage}%`}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
