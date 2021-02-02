@@ -2,12 +2,18 @@ import React from 'react';
 import { Grid, Table, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
+interface localIncomeTypeInterface {
+  total: number,
+  percentage: number
+}
+export interface incomeSummaryInterface {
+  totalIncome: number,
+  activeIncome: localIncomeTypeInterface,
+  passiveIncome: localIncomeTypeInterface
+}
+
 interface Props {
-  incomeTotal: number,
-  passiveIncomeTotal: number,
-  activeIncomeTotal: number,
-  activeIncomePercentage: number,
-  passiveIncomePercentage: number,
+  incomeSummary?: incomeSummaryInterface,
 }
 
 const useStyles = makeStyles({
@@ -20,9 +26,22 @@ const useStyles = makeStyles({
   }
 });
 
+const defaultIncomeSummary: incomeSummaryInterface = {
+  totalIncome: 0,
+  activeIncome: {
+    total: 0,
+    percentage: 0,
+  },
+  passiveIncome: {
+    total: 0,
+    percentage: 0,
+  }
+}
+
 const IncomeSummary: React.FC<Props> = (props: Props) => {
 
-  const { incomeTotal, passiveIncomeTotal, activeIncomeTotal, activeIncomePercentage, passiveIncomePercentage } = props
+  const { incomeSummary } = props
+  const { totalIncome, activeIncome, passiveIncome } = incomeSummary || defaultIncomeSummary;
   const classes = useStyles();
 
   return (
@@ -34,7 +53,7 @@ const IncomeSummary: React.FC<Props> = (props: Props) => {
                 Active Income:
               </TableCell>
               <TableCell>
-                {activeIncomeTotal}
+                {activeIncome.total}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -42,7 +61,7 @@ const IncomeSummary: React.FC<Props> = (props: Props) => {
                 Passive Income:
               </TableCell>
               <TableCell>
-                {passiveIncomeTotal}
+                {passiveIncome.total}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -50,8 +69,8 @@ const IncomeSummary: React.FC<Props> = (props: Props) => {
                 Income Ratio:
               </TableCell>
               <TableCell>
-                <Typography>{`Passive: ${passiveIncomePercentage}%`}</Typography>
-                <Typography>{`Active: ${activeIncomePercentage}%`}</Typography>
+                <Typography>{`Passive: ${passiveIncome.percentage}%`}</Typography>
+                <Typography>{`Active: ${activeIncome.percentage}%`}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -59,7 +78,7 @@ const IncomeSummary: React.FC<Props> = (props: Props) => {
                 Total Income:
               </TableCell>
               <TableCell>
-                  {incomeTotal}
+                  {totalIncome}
               </TableCell>
             </TableRow>
           </TableBody>

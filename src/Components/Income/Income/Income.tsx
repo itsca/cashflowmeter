@@ -5,8 +5,8 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import SummaryTable, { SummaryTableRowData } from '../../SummaryTable/SummaryTable';
-import IncomeSummary from '../IncomeSummary/IncomeSummary/IncomeSummary';
-import { getIncomeState, getTotalIncome, getTotalPassiveIncome, getTotalActiveIncome, getActiveIncomePercentage, getPassiveIncomePercentage } from "../../../Store/selectors";
+import IncomeSummary, { incomeSummaryInterface } from '../IncomeSummary/IncomeSummary/IncomeSummary';
+import { getIncomeState, getIncomeSummary } from "../../../Store/selectors/income/selectors";
 import { GlobalStateType } from '../../../Store/store';
 import { GlobalIncomeStateType } from '../../../Store/reducers/incomeReducer';
 import { setIncomeValues } from "../../../Store/actions";
@@ -16,11 +16,7 @@ import { setIncomeSourcesActionType } from '../../../Store/actionTypes';
 interface Props {
   storedIncome?: GlobalIncomeStateType,
   setIncomeValues?: (values: SummaryTableRowData[]) => setIncomeSourcesActionType,
-  storedIncomeTotal?: number
-  storedPassiveIncomeTotal?: number,
-  storedActiveIncomeTotal?: number,
-  storedActiveIncomePercentage?: number,
-  storedPassiveIncomePercentage?: number,
+  storedIncomeSummary?: incomeSummaryInterface
 }
 
 const useStyles = makeStyles({
@@ -33,12 +29,8 @@ const Income: React.FC<Props> = (props: Props) => {
 
   const {
       storedIncome,
-      storedIncomeTotal,
       setIncomeValues,
-      storedActiveIncomeTotal,
-      storedPassiveIncomeTotal,
-      storedActiveIncomePercentage,
-      storedPassiveIncomePercentage} = props
+      storedIncomeSummary} = props
   const classes = useStyles();
 
   const storedIncomeSources = storedIncome && storedIncome.sources ? storedIncome.sources : [] 
@@ -53,12 +45,8 @@ const Income: React.FC<Props> = (props: Props) => {
         />
       </Grid>
       <Grid item xs={6}>
-        <IncomeSummary 
-          incomeTotal={storedIncomeTotal || 0}
-          passiveIncomeTotal={storedPassiveIncomeTotal || 0}
-          activeIncomeTotal={storedActiveIncomeTotal || 0}
-          activeIncomePercentage={storedActiveIncomePercentage || 0}
-          passiveIncomePercentage={storedPassiveIncomePercentage || 0}
+        <IncomeSummary
+          incomeSummary={storedIncomeSummary}
         />
       </Grid>
     </Grid>
@@ -67,20 +55,12 @@ const Income: React.FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: GlobalStateType, ownProps: Props): Props => {
   const storedIncome = getIncomeState(state);
-  const storedIncomeTotal = getTotalIncome(state);
-  const storedPassiveIncomeTotal = getTotalPassiveIncome(state);
-  const storedActiveIncomeTotal = getTotalActiveIncome(state);
-  const storedActiveIncomePercentage = getActiveIncomePercentage(state);
-  const storedPassiveIncomePercentage = getPassiveIncomePercentage(state);
+  const storedIncomeSummary = getIncomeSummary(state);
 
   return { 
     ...ownProps,
     storedIncome,
-    storedIncomeTotal,
-    storedPassiveIncomeTotal,
-    storedActiveIncomeTotal,
-    storedActiveIncomePercentage,
-    storedPassiveIncomePercentage,
+    storedIncomeSummary,
   };
 };
 

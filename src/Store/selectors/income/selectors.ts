@@ -1,4 +1,5 @@
-import { GlobalStateType } from "./store";
+import { incomeSummaryInterface } from "../../../Components/Income/IncomeSummary/IncomeSummary/IncomeSummary";
+import { GlobalStateType } from "../../store";
 
 export const getIncomeState = (state: GlobalStateType) => state.Income;
 
@@ -9,5 +10,17 @@ export const getTotalActiveIncome = (state: GlobalStateType) => state.Income.sou
 // Complex
 export const getPassiveIncomePercentage = (state: GlobalStateType) => percentageFrom(getTotalPassiveIncome(state), getTotalIncome(state))
 export const getActiveIncomePercentage = (state: GlobalStateType) => percentageFrom(getTotalActiveIncome(state), getTotalIncome(state))
+
+export const getIncomeSummary = (state: GlobalStateType): incomeSummaryInterface => ({
+    totalIncome: getTotalIncome(state),
+    activeIncome: {
+        total: getTotalActiveIncome(state),
+        percentage: getActiveIncomePercentage(state)
+    },
+    passiveIncome: {
+        total: getTotalPassiveIncome(state),
+        percentage: getPassiveIncomePercentage(state)
+    }
+})
 
 const percentageFrom = (partialValue: number, totalValue: number): number => (100 * partialValue) / totalValue
