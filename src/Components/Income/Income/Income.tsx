@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Income: React.FC<Props> = (props: Props) => {
+export const Income: React.FC<Props> = (props: Props) => {
 
   const {
       storedIncome,
