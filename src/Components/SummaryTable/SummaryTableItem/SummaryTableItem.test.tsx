@@ -11,7 +11,8 @@ describe('SummaryTableItem Component', () => {
       const testRow: SummaryTableRowData = {
          name: 'Test',
          amount: 0,
-         id: '1'
+         id: '1',
+         isSpecial: false
       }
       shallow(
       <SummaryTableItem 

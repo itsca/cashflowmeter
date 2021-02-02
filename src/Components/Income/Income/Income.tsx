@@ -1,9 +1,23 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import SummaryTable, { SummaryTableRowData } from '../../SummaryTable/SummaryTable';
-import { makeStyles } from '@material-ui/styles';
-import IncomeSummary from '../IncomeSummary/IncomeSummary/IncomeSummary';
+import { connect } from "react-redux";
 
+import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+
+import SummaryTable, { SummaryTableRowData } from '../../SummaryTable/SummaryTable';
+import IncomeSummary, { incomeSummaryInterface } from '../IncomeSummary/IncomeSummary/IncomeSummary';
+import { getIncomeState, getIncomeSummary } from "../../../Store/selectors/income/selectors";
+import { GlobalStateType } from '../../../Store/store';
+import { GlobalIncomeStateType } from '../../../Store/reducers/incomeReducer';
+import { setIncomeValues } from "../../../Store/actions";
+import { setIncomeSourcesActionType } from '../../../Store/actionTypes';
+
+
+interface Props {
+  storedIncome?: GlobalIncomeStateType,
+  setIncomeValues?: (values: SummaryTableRowData[]) => setIncomeSourcesActionType,
+  storedIncomeSummary?: incomeSummaryInterface
+}
 
 const useStyles = makeStyles({
   root: {
@@ -11,46 +25,43 @@ const useStyles = makeStyles({
   }
 });
 
-const Income: React.FC = () => {
+export const Income: React.FC<Props> = (props: Props) => {
 
-
+  const {
+      storedIncome,
+      setIncomeValues,
+      storedIncomeSummary} = props
   const classes = useStyles();
 
-  //TODO: MOVE THIS TO REQUEST FROM API
-  // [
-  //   createRowData('Salary', 2600),
-  //   createRowData('BCRUSDCDP', 240)
-  // ]
-  const initialIncomeValues: SummaryTableRowData[] = [
-    {
-      name: 'Salary',
-      amount: 3250,
-      id: '1',
-      isSpecial: false
-    },
-    {
-      name: 'BCRUSDCDP',
-      amount: 240,
-      id: '2',
-      isSpecial: true
-    }
-  ]
-
-
+  const storedIncomeSources = storedIncome && storedIncome.sources ? storedIncome.sources : [] 
+  
   return (
     <Grid className={classes.root + ' Income'} container>
       <Grid item xs={6}>
         <SummaryTable 
-          initialValues={initialIncomeValues}
+          initialValues={storedIncomeSources}
           isSpecialHeader='Passive'
-          onValuesChange={(updatedFormValues) => console.log('New Income Values: ', updatedFormValues)}
+          onValuesChange={(updatedFormValues) => setIncomeValues && setIncomeValues(updatedFormValues)}
         />
       </Grid>
       <Grid item xs={6}>
-        <IncomeSummary />
+        <IncomeSummary
+          incomeSummary={storedIncomeSummary}
+        />
       </Grid>
     </Grid>
   );
 }
 
-export default Income;
+const mapStateToProps = (state: GlobalStateType, ownProps: Props): Props => {
+  const storedIncome = getIncomeState(state);
+  const storedIncomeSummary = getIncomeSummary(state);
+
+  return { 
+    ...ownProps,
+    storedIncome,
+    storedIncomeSummary,
+  };
+};
+
+export default connect(mapStateToProps, {setIncomeValues})(Income);

@@ -1,7 +1,8 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { Grid, List, ListItem, ListItemText, Paper, Button, Divider, Card } from '@material-ui/core';
+
+import { Grid, Card } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 import PersonalInfo from '../../Components/PersonalInfo/PersonalInfo';
 import Income from '../../Components/Income/Income/Income';
 
@@ -12,7 +13,6 @@ const useStyles = makeStyles({
 });
 
 const Calculator: React.FC = () => {
-
   const classes = useStyles();
 
   return (
