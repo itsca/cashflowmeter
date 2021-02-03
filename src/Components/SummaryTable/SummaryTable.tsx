@@ -11,6 +11,7 @@ import SummaryTableHeader from './SummaryTableHeader/SummaryTableHeader';
 import SummaryTableBody from './SummaryTableBody/SummaryTableBody';
 
 interface Props {
+  tableTitle: string,
   initialValues?: SummaryTableRowData[],
   isSpecialHeader: string,
   onValuesChange?: (updatedFormValues: SummaryTableRowData[]) => void
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export default function SummaryTable(props: Props) {
 
-  const { initialValues, onValuesChange, isSpecialHeader } = props 
+  const { initialValues, onValuesChange, isSpecialHeader, tableTitle } = props 
   const classes = useStyles();
   const [rows, setRows] = React.useState<SummaryTableRowData[]>(initialValues && initialValues.length > 0 ? initialValues : []);
   const [order, setOrder] = React.useState<SummaryTableSortingOrder>('asc');
@@ -163,6 +164,7 @@ export default function SummaryTable(props: Props) {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <SummaryTableToolBar 
+          title={tableTitle}
           numSelected={selectedRows.length} 
           handleAddClick={addRow}
           handleDeleteClick={removeRows}

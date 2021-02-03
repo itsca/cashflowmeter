@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface SummaryTableToolBarProps {
+  title: string,
   numSelected: number;
   handleAddClick: () => void,
   handleDeleteClick: () => void
@@ -44,7 +45,7 @@ interface SummaryTableToolBarProps {
 
 const SummaryTableToolBar = (props: SummaryTableToolBarProps) => {
   const classes = useStyles();
-  const { handleAddClick, handleDeleteClick, numSelected } = props;
+  const { handleAddClick, handleDeleteClick, numSelected, title } = props;
 
   return (
     <Toolbar
@@ -59,7 +60,7 @@ const SummaryTableToolBar = (props: SummaryTableToolBarProps) => {
           </Typography>
         ) : (
           <Typography variant="h6" id="tableTitle">
-            Income
+            {title}
           </Typography>
         )}
       </div>

@@ -1,5 +1,5 @@
-import { SET_INCOME_SOURCES, setIncomeSourcesActionType } from "../actionTypes";
-import { SummaryTableRowData } from "../../Components/SummaryTable/SummaryTable";
+import { SET_INCOME_SOURCES, setIncomeSourcesActionType } from "../../actions/actionTypes";
+import { SummaryTableRowData } from "../../../Components/SummaryTable/SummaryTable";
 
 export interface GlobalIncomeStateType {
     sources:SummaryTableRowData[]

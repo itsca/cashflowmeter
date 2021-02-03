@@ -8,9 +8,9 @@ import SummaryTable, { SummaryTableRowData } from '../../SummaryTable/SummaryTab
 import IncomeSummary, { incomeSummaryInterface } from '../IncomeSummary/IncomeSummary/IncomeSummary';
 import { getIncomeState, getIncomeSummary } from "../../../Store/selectors/income/selectors";
 import { GlobalStateType } from '../../../Store/store';
-import { GlobalIncomeStateType } from '../../../Store/reducers/incomeReducer';
-import { setIncomeValues } from "../../../Store/actions";
-import { setIncomeSourcesActionType } from '../../../Store/actionTypes';
+import { GlobalIncomeStateType } from '../../../Store/reducers/income/incomeReducer';
+import { setIncomeValues } from "../../../Store/actions/income/actions";
+import { setIncomeSourcesActionType } from '../../../Store/actions/actionTypes';
 
 
 interface Props {
@@ -38,7 +38,8 @@ export const Income: React.FC<Props> = (props: Props) => {
   return (
     <Grid className={classes.root + ' Income'} container>
       <Grid item xs={6}>
-        <SummaryTable 
+        <SummaryTable
+          tableTitle={'Income'} 
           initialValues={storedIncomeSources}
           isSpecialHeader='Passive'
           onValuesChange={(updatedFormValues) => setIncomeValues && setIncomeValues(updatedFormValues)}
@@ -56,6 +57,7 @@ export const Income: React.FC<Props> = (props: Props) => {
 const mapStateToProps = (state: GlobalStateType, ownProps: Props): Props => {
   const storedIncome = getIncomeState(state);
   const storedIncomeSummary = getIncomeSummary(state);
+console.log('😁');
 
   return { 
     ...ownProps,
