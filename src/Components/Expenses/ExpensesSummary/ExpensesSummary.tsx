@@ -50,7 +50,7 @@ const ExpensesSummary: React.FC<Props> = (props: Props) => {
           <TableBody>
             <TableRow>
               <TableCell>
-                Active Expenses:
+                Necessary Expenses:
               </TableCell>
               <TableCell>
                 {activeExpenses.total}
@@ -58,7 +58,7 @@ const ExpensesSummary: React.FC<Props> = (props: Props) => {
             </TableRow>
             <TableRow>
               <TableCell>
-                Passive Expenses:
+                Unnecessary Expenses:
               </TableCell>
               <TableCell>
                 {passiveExpenses.total}
@@ -69,8 +69,8 @@ const ExpensesSummary: React.FC<Props> = (props: Props) => {
                 Expenses Ratio:
               </TableCell>
               <TableCell>
-                <Typography>{`Passive: ${passiveExpenses.percentage}%`}</Typography>
-                <Typography>{`Active: ${activeExpenses.percentage}%`}</Typography>
+                <Typography>{`Unnecessary: ${passiveExpenses.percentage}%`}</Typography>
+                <Typography>{`Necessary: ${activeExpenses.percentage}%`}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>

@@ -40,7 +40,7 @@ export const Expenses: React.FC<Props> = (props: Props) => {
         <SummaryTable
           tableTitle={'Expenses'}
           initialValues={storedExpensesSources}
-          isSpecialHeader='Passive'
+          isSpecialHeader='Unnecessary'
           onValuesChange={(updatedFormValues) => setExpensesValues && setExpensesValues(updatedFormValues)}
         />
       </Grid>
