@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import HomePage from '../../Containers/HomePage/HomePage';
 import MainBar from '../MainBar/MainBar';
-import Calculator from '../../Containers/Calculator/Calculator';
+import Statement from '../../Containers/FinancialStatement/FinancialStatement';
 
 const useStyles = makeStyles({
   root: {
@@ -25,7 +25,7 @@ const Layout: React.FC = () => {
       </Grid>
       <Grid container>
         <Route path="/" exact component={HomePage} />
-        <Route path="/calculator" exact component={Calculator} />
+        <Route path="/statement" exact component={Statement} />
       </Grid>
     </Grid>
   );
