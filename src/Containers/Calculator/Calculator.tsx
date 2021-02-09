@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import PersonalInfo from '../../Components/PersonalInfo/PersonalInfo';
 import Income from '../../Components/Income/Income/Income';
+import Expenses from '../../Components/Expenses/Expenses/Expenses';
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +22,7 @@ const Calculator: React.FC = () => {
         <Card>
           <PersonalInfo />
           <Income />
+          <Expenses />
         </Card>
       </Grid>
     </Grid>

@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
-import Income from "./incomeReducer";
+import Income from "./income/incomeReducer";
+import Expenses from "./expenses/expensesReducer";
 
-export default combineReducers({ Income });
+export default combineReducers({ Income, Expenses });
