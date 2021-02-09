@@ -57,7 +57,8 @@ export const Income: React.FC<Props> = (props: Props) => {
 const mapStateToProps = (state: GlobalStateType, ownProps: Props): Props => {
   const storedIncome = getIncomeState(state);
   const storedIncomeSummary = getIncomeSummary(state);
-console.log('😁');
+
+  
 
   return { 
     ...ownProps,
