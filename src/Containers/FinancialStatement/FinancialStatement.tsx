@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Calculator: React.FC = () => {
+const FinancialStatement: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -29,4 +29,4 @@ const Calculator: React.FC = () => {
   )
 }
 
-export default Calculator
+export default FinancialStatement
