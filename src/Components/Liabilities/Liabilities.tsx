@@ -48,8 +48,6 @@ export const Liabilities: React.FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: GlobalStateType, ownProps: Props): Props => {
   const storedLiabilities = getLiabilitiesState(state);
-  console.log('state', state);
-  
 
   return { 
     ...ownProps,
