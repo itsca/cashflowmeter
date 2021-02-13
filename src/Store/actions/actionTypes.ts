@@ -1,6 +1,7 @@
 import { GlobalAssetStateType } from "../reducers/assets/assetsReducer";
 import { GlobalExpenseStateType } from "../reducers/expenses/expensesReducer";
 import { GlobalIncomeStateType } from "../reducers/income/incomeReducer";
+import { GlobalLiabilityStateType } from "../reducers/liabilities/liabilitiesReducer";
 
 type actionType = {
     type: string
@@ -9,6 +10,7 @@ type actionType = {
 export const SET_INCOME_SOURCES = "SET_INCOME_SOURCES";
 export const SET_EXPENSE_SOURCES = "SET_EXPENSE_SOURCES";
 export const SET_ASSET_SOURCES = "SET_ASSET_SOURCES";
+export const SET_LIABILITIES_SOURCES = "SET_ASSET_SOURCES";
 
 export interface setIncomeSourcesActionType extends actionType {
     payload: GlobalIncomeStateType
@@ -18,4 +20,7 @@ export interface setExpenseSourcesActionType extends actionType {
 }
 export interface setAssetsSourcesActionType extends actionType {
     payload: GlobalAssetStateType
+}
+export interface setLiabilitiesSourcesActionType extends actionType {
+    payload: GlobalLiabilityStateType
 }

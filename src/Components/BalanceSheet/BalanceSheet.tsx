@@ -3,6 +3,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Assets from '../Assets/Assets';
+import Liabilities from '../Liabilities/Liabilities';
 
 const useStyles = makeStyles({
   root: {
@@ -19,7 +20,7 @@ const BalanceSheet: React.FC = () => {
         <Assets/>
       </Grid>
       <Grid item xs={6}>
-        <p>Test</p>
+        <Liabilities/>
       </Grid>
     </Grid>
   );
