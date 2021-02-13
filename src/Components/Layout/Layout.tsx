@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import HomePage from '../../Containers/HomePage/HomePage';

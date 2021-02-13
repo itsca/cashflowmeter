@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid, AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
-import { flexbox } from '@material-ui/system';
 
 const useStyles = makeStyles({
   bar: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableBody, TableCell, TableRow, Checkbox, TextField } from '@material-ui/core';
+import { TableBody, TableCell, TableRow } from '@material-ui/core';
 import { SummaryTableSortingOrder, SummaryTableRowData } from '../SummaryTable';
 import SummaryTableItem from '../SummaryTableItem/SummaryTableItem';
 
