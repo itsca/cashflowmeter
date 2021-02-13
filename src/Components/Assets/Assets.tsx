@@ -30,9 +30,7 @@ export const Assets: React.FC<Props> = (props: Props) => {
       setAssetsValues} = props
   const classes = useStyles();
 
-  const storedAssetsSources = storedAssets && storedAssets.sources ? storedAssets.sources : [] 
-  console.log('😀', storedAssets);
-  console.log('😀😀', storedAssetsSources);
+  const storedAssetsSources = storedAssets && storedAssets.sources ? storedAssets.sources : []
   
   return (
     <Grid className={classes.root + ' Assets'} container>
@@ -50,11 +48,7 @@ export const Assets: React.FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: GlobalStateType, ownProps: Props): Props => {
   const storedAssets = getAssetsState(state);
-  console.log('state', state);
-  console.log('storedAssets', storedAssets);
   
-  
-
   return { 
     ...ownProps,
     storedAssets,
